@@ -9,6 +9,7 @@ import Login from './components/Login';
 function App() {
 
   const [ user, setUser ] = useState('');
+  const [ email, setEmail ] = useState('');
   const [ messages, setMessages ] = useState([]);
 
   useEffect(() => {
@@ -34,16 +35,16 @@ function App() {
     }
   }, [messages])
 
-  const addUser = (name) => {
+  const addUser = ({name, email}) => {
     setUser(name);
-    console.log("name ", name);
+    setEmail(email);
   }
 
   const Room = () => (
     <div className="app">
       <div className="app__body">
         <Sidebar />
-        <Chat user={user} messages={messages} />
+        <Chat email={email} user={user} messages={messages} />
       </div>
     </div>
   );

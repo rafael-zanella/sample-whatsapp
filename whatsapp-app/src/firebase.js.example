@@ -1,0 +1,20 @@
+import { initializeApp, auth } from 'firebase'
+
+
+const firebaseConfig = {
+  apiKey: "api-key",
+  authDomain: "project-id.firebaseapp.com",
+  databaseURL: "https://project-id.firebaseio.com",
+  projectId: "project-id",
+  storageBucket: "project-id.appspot.com",
+  messagingSenderId: "sender-id",
+  appID: "app-id",
+}
+
+const firebaseApp = initializeApp(firebaseConfig);
+const firebaseDB = firebaseApp.firestore();
+const firebaseAuth = auth();
+const firebaseProvider = new auth.GoogleAuthProvider();
+
+export { firebaseAuth, firebaseProvider };
+export default firebaseDB;

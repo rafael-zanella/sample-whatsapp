@@ -5,7 +5,7 @@ import {SearchOutlined, AttachFile, MoreVert, InsertEmoticon, Mic } from "@mater
 import api from '../../api';
 
 
-const Chat = ({ user, messages }) => {
+const Chat = ({ email, user, messages }) => {
 
   const [ input, setInput ] = useState('');
   const chatBodyRef = useRef(null);
@@ -14,6 +14,7 @@ const Chat = ({ user, messages }) => {
   const sendMessage = async (e) => {
     e.preventDefault();
     await api.post('/messages/new', {
+      email: email,
       message: input,
       name: user,
       timestamp: "Just now",
@@ -54,7 +55,7 @@ const Chat = ({ user, messages }) => {
 
         {messages.map((msg) => {
           return (
-            <p key={msg._id} className={`chat__message ${msg.received && "chat__receiver"}`}>
+            <p key={msg._id} className={`chat__message ${msg.email === email && "chat__receiver"}`}>
               <span className="chat__name">{msg.name}</span>
                 {msg.message}
               <span className="chat__timestamp">
