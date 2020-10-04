@@ -55,6 +55,7 @@ db.once('open', () => {
       const messageDetails = change.fullDocument;
       pusher.trigger('messages', 'inserted', {
         _id: messageDetails._id,
+        email: messageDetails.email,
         name: messageDetails.name,
         message: messageDetails.message,
         timestamp: messageDetails.timestamp,

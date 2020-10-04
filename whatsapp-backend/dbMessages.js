@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const whatsappSchema = mongoose.Schema({
+  email: String,
   message: String,
   name: String,
   timestamp: String,
