@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Pusher from 'pusher-js';
-import Sidebar from "./Sidebar";
-import Chat from "./Chat";
+import Sidebar from "./components/Sidebar";
+import Chat from "./components/Chat";
 import api from './api';
+import Login from './components/Login';
 
 function App() {
 
+  const [ user, setUser ] = useState('');
   const [ messages, setMessages ] = useState([]);
 
   useEffect(() => {
@@ -32,15 +34,22 @@ function App() {
     }
   }, [messages])
 
-  console.log(messages);
-  return (
+  const addUser = (name) => {
+    setUser(name);
+    console.log("name ", name);
+  }
+
+  const Room = () => (
     <div className="app">
       <div className="app__body">
         <Sidebar />
-        <Chat messages={messages} />
+        <Chat user={user} messages={messages} />
       </div>
     </div>
   );
+
+  return !user ? <Login onSend={addUser}/> : <Room />   
+
 }
 
 export default App;
