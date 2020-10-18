@@ -18,7 +18,15 @@ const Login = ({ onSend }) => {
 
   return (
     <div className="login">
-      <button onClick={signIn} type="submit">Google Auth</button>
+      <section className="login__form">
+        <h3 className="title"> Welcome to Fake Whatsapp </h3>
+        <button
+          className="google__button" 
+          onClick={signIn} 
+          type="submit">
+          Sign In With Google
+        </button>
+      </section>
     </div>
   )
 }
