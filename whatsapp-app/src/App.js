@@ -43,7 +43,7 @@ function App() {
   const Room = () => (
     <div className="app">
       <div className="app__body">
-        <Sidebar />
+       
         <Chat email={email} user={user} messages={messages} />
       </div>
     </div>

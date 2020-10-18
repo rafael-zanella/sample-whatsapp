@@ -39,9 +39,6 @@ const Chat = ({ email, user, messages }) => {
         </div>
 
         <div className="chat__headerRight">
-          <IconButton >
-            <SearchOutlined />
-          </IconButton>
           <IconButton>
             <AttachFile />
           </IconButton>
