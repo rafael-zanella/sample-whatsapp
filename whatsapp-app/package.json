@@ -11,10 +11,10 @@
     "axios": "^0.20.0",
     "dotenv": "^8.2.0",
     "firebase": "^7.22.0",
-    "pusher-js": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "socket.io-client": "^2.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
