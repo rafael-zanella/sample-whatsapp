@@ -1,24 +1,19 @@
-// importing 
+// importing
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import Pusher from 'pusher'
 import cors from 'cors'
 import Messages from './dbMessages.js'
-
-dotenv.config()
+import http from 'http';
+import socketIo from 'socket.io';
 
 // app config
+dotenv.config()
 const app = express()
 const port = process.env.PORT || 9000
-
-const pusher = new Pusher({
-  appId: process.env.PUSHER_APP_ID,
-  key: process.env.PUSHER_APP_KEY,
-  secret: process.env.PUSHER_APP_SECRET,
-  cluster: process.env.PUSHER_APP_CLUSTER,
-  useTSL: process.env.PUSHER_APP_USE_TSL
-});
+const server =http.createServer(app);
+const io = socketIo(server);
 
 // middleware
 app.use(express.json())
@@ -48,26 +43,20 @@ db.once('open', () => {
   console.log('DB connected');
 
   const msgCollection = db.collection('messagecontents')
-  const changeStream = msgCollection.watch()
+  const changeStream = msgCollection.watch();
 
   changeStream.on('change', (change) => {
-    if(change.operationType === 'insert') {
-      const messageDetails = change.fullDocument;
-      pusher.trigger('messages', 'inserted', {
-        _id: messageDetails._id,
-        email: messageDetails.email,
-        name: messageDetails.name,
-        message: messageDetails.message,
-        timestamp: messageDetails.timestamp,
-        received:  messageDetails.received,
-      });
-      
-    } else {
-      console.log("Error triggering pusher")
-    }
+    const messageDetails = change.fullDocument;
+    io.emit('newMessage', {
+      _id: messageDetails._id,
+      email: messageDetails.email,
+      name: messageDetails.name,
+      message: messageDetails.message,
+      timestamp: messageDetails.timestamp,
+      received:  messageDetails.received,
+    });
   })
 })
-
 
 // api routes
 app.get('/', (req, res) => res.status(200).send('Hello World'))
@@ -95,4 +84,4 @@ app.post('/messages/new', (req, res) => {
 })
 
 // listen
-app.listen(port, () => console.log(`Listening on port: ${port}`))
+server.listen(port, () => console.log(`Listening on port: ${port}`))
