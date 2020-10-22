@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import Pusher from 'pusher-js';
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import api from './api';
